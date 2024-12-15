@@ -2,6 +2,7 @@ package com.example.sm_borrow;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,9 +36,25 @@ public class MainActivity extends AppCompatActivity {
 
         // Add Buttons in Main Page
         Button rentButton = findViewById(R.id.rentButton);
-        rentButton.setOnClickListener(v -> Toast.makeText(this, "Rent button clicked!", Toast.LENGTH_SHORT).show());
+        rentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // HaveActivity로 이동
+                Intent intent = new Intent(MainActivity.this, NeedActivity.class);
+                startActivity(intent);
+            }
+        });
+        //rentButton.setOnClickListener(v -> Toast.makeText(this, "Rent button clicked!", Toast.LENGTH_SHORT).show());
 
         Button lendButton = findViewById(R.id.lendButton);
-        lendButton.setOnClickListener(v -> Toast.makeText(this, "Lend button clicked!", Toast.LENGTH_SHORT).show());
+        lendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // HaveActivity로 이동
+                Intent intent = new Intent(MainActivity.this, HaveActivity.class);
+                startActivity(intent);
+            }
+        });
+        //lendButton.setOnClickListener(v -> Toast.makeText(this, "Lend button clicked!", Toast.LENGTH_SHORT).show());
     }
 }

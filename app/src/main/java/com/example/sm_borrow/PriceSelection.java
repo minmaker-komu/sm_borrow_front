@@ -38,7 +38,7 @@ public class PriceSelection extends AppCompatActivity {
 
         // 서버 통신 설정
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://yourserver.com") // 서버의 BASE URL 설정
+                .baseUrl("172.20.5.227") // 서버의 BASE URL 설정
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiService = retrofit.create(ApiService.class);
