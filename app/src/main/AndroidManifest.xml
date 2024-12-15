@@ -13,6 +13,33 @@
         android:theme="@style/Theme.Sm_borrow"
         tools:targetApi="31">
         <activity
+            android:name=".ChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChatListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NeedPriceSelection"
+            android:exported="false" />
+        <activity
+            android:name=".NeedResultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NeedActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PriceSelection"
+            android:exported="false" />
+        <activity
+            android:name=".HaveResultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HaveActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
