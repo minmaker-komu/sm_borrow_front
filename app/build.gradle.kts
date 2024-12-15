@@ -2,13 +2,15 @@ plugins {
     id("com.android.application")
 }
 
+
+
 android {
     namespace = "com.example.sm_borrow"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.sm_borrow"
-        minSdk = 24
+        minSdk = 21
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
