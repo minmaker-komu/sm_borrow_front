@@ -1,6 +1,7 @@
 package com.example.sm_borrow;
 
 import com.example.sm_borrow.data.LentItem;
+import com.example.sm_borrow.data.LentItemDto;
 
 import java.util.List;
 
@@ -24,6 +25,11 @@ public interface ApiService {
             @Query("userId") Long userId,
             @Query("specialNote") String specialNote
     );
+
+    @POST("/api/lent-items/add")
+    Call<LentItemDto> addLentItem(@Body LentItemDto lentItemDto);
+
+
 
     // 빌려준 물건 삭제
     @DELETE("/api/lent-items/{lentItemId}")
