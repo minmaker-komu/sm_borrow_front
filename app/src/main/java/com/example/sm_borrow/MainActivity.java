@@ -16,22 +16,22 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setOnItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.nav_chat:
-                    startActivity(new Intent(MainActivity.this, ChatActivity.class));
-                    return true;
-                case R.id.nav_home:
-                    //현재 페이지
-                    return true;
-                case R.id.nav_mypage:
-                    Intent intentm = new Intent(this, MyPageActivity.class);
-                    startActivity(intentm);
-                    return true;
-                    return true;
-                default:
-                    return false;
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_chat) {
+                startActivity(new Intent(MainActivity.this, ChatActivity.class));
+                return true;
+            } else if (itemId == R.id.nav_home) {
+                // 현재 페이지
+                return true;
+            } else if (itemId == R.id.nav_mypage) {
+                Intent intentm = new Intent(this, MyPageActivity.class);
+                startActivity(intentm);
+                return true;
+            } else {
+                return false;
             }
         });
+
 
         // Add Buttons in Main Page
         Button rentButton = findViewById(R.id.rentButton);
