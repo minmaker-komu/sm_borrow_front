@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +31,24 @@ public class ChatListActivity extends AppCompatActivity {
 
         adapter = new ChatListAdapter(this, chatItems);
         recyclerView.setAdapter(adapter);
+
+        //네비
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_chat) {
+                //현재
+                return true;
+            } else if (itemId == R.id.nav_home) {
+                startActivity(new Intent(ChatListActivity.this, MainActivity.class));
+                return true;
+            } else if (itemId == R.id.nav_mypage) {
+                startActivity(new Intent(ChatListActivity.this, MyPageActivity.class));
+                return true;
+            } else {
+                return false;
+            }
+        });
     }
 
     private List<ChatItem> fetchChatListFromServer() {

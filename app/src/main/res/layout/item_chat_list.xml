@@ -20,7 +20,7 @@
     <!-- 채팅 정보 -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <!-- 아이템 이름 -->
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:text="아이템 이름"
             android:textStyle="bold"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <!-- 최근 메시지 -->
         <TextView

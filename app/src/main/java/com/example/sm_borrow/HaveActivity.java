@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.widget.Button;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class HaveActivity extends AppCompatActivity {
 
     @Override
@@ -29,6 +31,24 @@ public class HaveActivity extends AppCompatActivity {
         btnBattery.setOnClickListener(view -> navigateToResult("보조배터리"));
         btnLocker.setOnClickListener(view -> navigateToResult("사물함"));
         btnEarphones.setOnClickListener(view -> navigateToResult("이어폰"));
+
+        //네비
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_chat) {
+                startActivity(new Intent(HaveActivity.this, ChatActivity.class));
+                return true;
+            } else if (itemId == R.id.nav_home) {
+                startActivity(new Intent(HaveActivity.this, MainActivity.class));
+                return true;
+            } else if (itemId == R.id.nav_mypage) {
+                startActivity(new Intent(HaveActivity.this, MyPageActivity.class));
+                return true;
+            } else {
+                return false;
+            }
+        });
     }
 
     private void navigateToResult(String keyword) {

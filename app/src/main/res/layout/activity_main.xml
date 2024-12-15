@@ -5,9 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        style="@style/Title"
-        android:text="sm_borrow"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/Title"
+            android:layout_width="356dp"
+            android:gravity="left"
+            android:paddingLeft="24dp"
+            android:text="sm_borrow" />
+
+    <android.widget.ImageButton
+        android:id="@+id/bell"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@null"
+        android:src="@drawable/bell"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
