@@ -7,13 +7,8 @@
 
         <TextView
             android:id="@+id/pageText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:text="회원가입"
-            android:gravity="center"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:layout_marginTop="25dp"/>
+            style="@style/Title"/>
 
         <!-- 이메일 -->
         <TextView
@@ -23,7 +18,7 @@
             android:text="아이디(이메일)"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:layout_marginTop="50dp"/>
+            android:layout_marginTop="25dp"/>
 
         <EditText
             android:id="@+id/emailFeild"
@@ -80,11 +75,10 @@
             android:hint="비밀번호를 한 번더 입력해주세요."/>
 
         <!-- 가입 버튼 -->
-        <Button
+        <android.widget.Button
             android:id="@+id/signupButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:text="가입하기"
-            android:layout_marginTop="70dp"/>
+            style="@style/CommonButton"
+            android:layout_marginTop="50dp"/>
 
 </LinearLayout>

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NeedPriceSelection">
+
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -15,13 +16,8 @@
 
         <TextView
             android:id="@+id/text_button_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:text="선택한 물품"
-            android:textSize="20sp"
-            android:textColor="#000000"
-            android:gravity="center"
-            android:layout_marginBottom="4dp" />
+            style="@style/Title" />
 
         <!-- 제목 -->
         <TextView
@@ -50,35 +46,17 @@
             android:orientation="vertical"
             android:gravity="center">
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <android.widget.Button
                 android:text="500원"
-                android:background="@drawable/outline_button"
-                android:textColor="#002D8C"
-                android:layout_marginBottom="16dp"
-                android:padding="16dp"
-                android:textSize="16sp" />
+                style="@style/PriceButton"/>
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <android.widget.Button
                 android:text="1000원"
-                android:background="@drawable/outline_button"
-                android:textColor="#002D8C"
-                android:layout_marginBottom="16dp"
-                android:padding="16dp"
-                android:textSize="16sp" />
+                style="@style/PriceButton"/>
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <android.widget.Button
                 android:text="1500원"
-                android:background="@drawable/outline_button"
-                android:textColor="#002D8C"
-                android:layout_marginBottom="32dp"
-                android:padding="16dp"
-                android:textSize="16sp" />
+                style="@style/PriceButton" />
         </LinearLayout>
 
         <!-- 특이사항 입력란 -->
@@ -87,7 +65,9 @@
             android:layout_height="wrap_content"
             android:text="특이사항"
             android:textSize="16sp"
+            android:gravity="center"
             android:textColor="#000000"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp" />
 
         <EditText
@@ -101,51 +81,25 @@
             android:layout_marginBottom="24dp" />
 
         <!-- 등록 버튼 -->
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <android.widget.Button
             android:text="등록"
-            android:backgroundTint="#002D8C"
-            android:textColor="#FFFFFF"
-            android:padding="16dp"
-            android:textSize="16sp"
-            android:layout_gravity="center" />
-
-        <!-- 하단 네비게이션 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:padding="8dp"
-            android:layout_marginTop="32dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="채팅"
-                android:gravity="center"
-                android:textSize="14sp"
-                android:textColor="#000000" />
-
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_weight="1"
-                android:src="@android:drawable/ic_menu_home"
-                android:contentDescription="홈"
-                android:layout_gravity="center" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="마이페이지"
-                android:gravity="center"
-                android:textSize="14sp"
-                android:textColor="#000000" />
-        </LinearLayout>
+            style="@style/CommonButton"/>
     </LinearLayout>
+    <FrameLayout
+        android:id="@+id/mainContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomNavigation" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/smlight"
+        app:itemIconSize="24dp"
+        app:itemTextAppearanceActive="@style/TextAppearance.AppCompat.Medium"
+        app:itemTextAppearanceInactive="@style/TextAppearance.AppCompat.Small"
+        app:menu="@menu/bottom_nav_menu" />
+
+</RelativeLayout>

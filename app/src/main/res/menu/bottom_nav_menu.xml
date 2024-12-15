@@ -3,14 +3,13 @@
     <item
         android:id="@+id/nav_chat"
         android:title="채팅"
-        android:iconGravity="textStart"/>
+        android:icon="@drawable/chat"/>
     <item
         android:id="@+id/nav_home"
-        android:icon="@drawable/ic_home"
-        android:iconGravity="textStart"
-        android:title="" />
+        android:title="home"
+        android:icon="@drawable/ic_home"/>
     <item
         android:id="@+id/nav_mypage"
         android:title="마이페이지"
-        android:iconGravity="textStart"/>
+        android:icon="@drawable/mypage"/>
 </menu>

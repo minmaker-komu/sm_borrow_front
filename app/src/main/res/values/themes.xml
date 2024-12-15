@@ -3,7 +3,8 @@
     <style name="Base.Theme.Sm_borrow" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="buttonStyle">@style/Widget.AppCompat.Button</item>
+        <item name="backgroundTint">@null</item>
     </style>
-
     <style name="Theme.Sm_borrow" parent="Base.Theme.Sm_borrow" />
 </resources>

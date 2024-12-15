@@ -31,12 +31,11 @@
         android:layout_gravity="right"
         android:text="상태"
         android:textSize="14sp"
+        android:textColor="#aa0000"
         android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/correct"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="반납하기"
-        android:layout_marginTop="70dp"/>
+    <android.widget.Button
+        android:layout_marginTop="8dp"
+        style="@style/CommonButton"
+        android:text="반납하기"/>
 </LinearLayout>
