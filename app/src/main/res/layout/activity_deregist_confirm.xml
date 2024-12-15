@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="탈퇴하기"
-        android:textSize="30sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         android:gravity="center"
         android:layout_marginTop="25dp"
@@ -36,6 +36,7 @@
             android:id="@+id/confirmButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/CommonButton"
             android:layout_marginTop="20dp"
             android:text="확인" />
 

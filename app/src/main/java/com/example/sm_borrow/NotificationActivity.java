@@ -1,10 +1,12 @@
 package com.example.sm_borrow;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,25 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
 
         availableRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         availableRecyclerView.setAdapter(new NotificationAdapter(this, availableItems, this));
+
+        // 네비게이션 뷰 설정
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_chat) {
+                startActivity(new Intent(NotificationActivity.this, ChatActivity.class));
+                return true;
+            } else if (itemId == R.id.nav_home) {
+                startActivity(new Intent(NotificationActivity.this, MainActivity.class));
+                return true;
+            } else if (itemId == R.id.nav_mypage) {
+                Intent intentm = new Intent(NotificationActivity.this, MyPageActivity.class);
+                startActivity(intentm);
+                return true;
+            } else {
+                return false;
+            }
+        });
     }
 
     private List<NotificationItem> fetchDataFromServer() {

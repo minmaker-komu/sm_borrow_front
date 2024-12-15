@@ -34,9 +34,6 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/correct"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="반납하기"
-        android:layout_marginTop="70dp"/>
+        style="@style/CommonButton"
+        android:text="반납하기"/>
 </LinearLayout>

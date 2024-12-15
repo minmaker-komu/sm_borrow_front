@@ -7,18 +7,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="50dp">
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/loginText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:text="로그인"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="25dp"/>
+        style="@style/Title"/>
 
     <!-- 닉네임 -->
     <TextView
@@ -57,6 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="로그인"
+        style="@style/CommonButton"
         android:layout_marginTop="70dp"/>
 </LinearLayout>
 

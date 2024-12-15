@@ -43,19 +43,20 @@ public class MyPageActivity extends AppCompatActivity {
         // 하단 네비게이션 뷰 설정
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setOnItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.nav_chat:
-                    startActivity(new Intent(MyPageActivity.this, ChatActivity.class));
-                    return true;
-                case R.id.nav_home:
-                    startActivity(new Intent(MyPageActivity.this, MainActivity.class));
-                    return true;
-                case R.id.nav_mypage:
-                    // 현재 페이지이므로 이동하지 않음
-                    return true;
-                default:
-                    return false;
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_chat) {
+                startActivity(new Intent(MyPageActivity.this, ChatActivity.class));
+                return true;
+            } else if (itemId == R.id.nav_home) {
+                startActivity(new Intent(MyPageActivity.this, MainActivity.class));
+                return true;
+            } else if (itemId == R.id.nav_mypage) {
+                // 현재 페이지이므로 이동하지 않음
+                return true;
+            } else {
+                return false;
             }
         });
+
     }
 }

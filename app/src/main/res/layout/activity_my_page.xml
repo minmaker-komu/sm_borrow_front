@@ -13,28 +13,24 @@
 
         <Button
             android:id="@+id/InfoButton"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            style="@style/CommonButton"
             android:text="회원 정보 수정" />
 
         <Button
             android:id="@+id/MyItem"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            style="@style/CommonButton"
             android:text="나의 물품 조회"
             android:layout_marginTop="16dp"/>
 
         <Button
             android:id="@+id/BorrowItem"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            style="@style/CommonButton"
             android:text="빌린 물품 조회"
             android:layout_marginTop="16dp"/>
 
         <Button
             android:id="@+id/Deregist"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            style="@style/CommonButton"
             android:text="탈퇴하기"
             android:layout_marginTop="16dp"/>
 
