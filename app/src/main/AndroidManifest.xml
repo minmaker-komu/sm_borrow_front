@@ -13,10 +13,46 @@
         android:theme="@style/Theme.Sm_borrow"
         tools:targetApi="31">
         <activity
+            android:name=".BorrowItemActivity"
+            android:exported="false" />
+        <activity
             android:name=".ChatActivity"
             android:exported="false" />
         <activity
             android:name=".ChatListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DeregistActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DeregistConfirmActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HaveActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HaveResultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ItemActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".MyInfoActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".MyPageActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".NeedActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NeedResultActivity"
             android:exported="false" />
         <activity
             android:name=".NotificationActivity"
@@ -25,29 +61,19 @@
             android:name=".NeedPriceSelection"
             android:exported="false" />
         <activity
-            android:name=".NeedResultActivity"
+            android:name=".SignupActivity"
             android:exported="false" />
         <activity
-            android:name=".NeedActivity"
+            android:name=".StartActivity"
             android:exported="false" />
         <activity
             android:name=".PriceSelection"
             android:exported="false" />
-        <activity
-            android:name=".HaveResultActivity"
-            android:exported="false" />
-        <activity
-            android:name=".HaveActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
     </application>
 
 </manifest>

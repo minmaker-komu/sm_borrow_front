@@ -1,5 +1,6 @@
 package com.example.sm_borrow;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -7,6 +8,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MyInfoActivity extends AppCompatActivity {
 
@@ -51,6 +54,24 @@ public class MyInfoActivity extends AppCompatActivity {
                 Log.d("EditProfileActivity", "Email: " + email);
                 Log.d("EditProfileActivity", "Name: " + name);
                 Log.d("EditProfileActivity", "Password: " + password);
+            }
+        });
+
+        //네비
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_chat) {
+                startActivity(new Intent(MyInfoActivity.this, ChatActivity.class));
+                return true;
+            } else if (itemId == R.id.nav_home) {
+                startActivity(new Intent(MyInfoActivity.this, MainActivity.class));
+                return true;
+            } else if (itemId == R.id.nav_mypage) {
+                startActivity(new Intent(MyInfoActivity.this, MyPageActivity.class));
+                return true;
+            } else {
+                return false;
             }
         });
     }

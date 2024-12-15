@@ -51,7 +51,7 @@ public class MyPageActivity extends AppCompatActivity {
                 startActivity(new Intent(MyPageActivity.this, MainActivity.class));
                 return true;
             } else if (itemId == R.id.nav_mypage) {
-                // 현재 페이지이므로 이동하지 않음
+                // 현재 페이지
                 return true;
             } else {
                 return false;
