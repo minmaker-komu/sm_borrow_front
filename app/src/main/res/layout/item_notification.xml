@@ -50,18 +50,20 @@
                 android:gravity="end"
                 android:layout_marginTop="4dp">
 
-                <Button
+                <android.widget.Button
                     android:id="@+id/button_accept"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="승인" />
+                    android:text="승인"
+                    style="@style/PriceButton"/>
 
-                <Button
+                <android.widget.Button
                     android:id="@+id/button_reject"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="거절"
-                    android:layout_marginStart="8dp" />
+                    style="@style/PriceButton"
+                    android:layout_marginLeft="8dp"/>
             </LinearLayout>
 
             <TextView

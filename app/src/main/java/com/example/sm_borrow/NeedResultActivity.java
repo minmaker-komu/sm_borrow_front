@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +33,24 @@ public class NeedResultActivity extends AppCompatActivity {
         List<String> results = getSearchResults(keyword);
         NeedResultAdapter adapter = new NeedResultAdapter(this, results); // 어댑터 이름 변경
         searchResultList.setAdapter(adapter);
+
+        //네비
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_chat) {
+                startActivity(new Intent(NeedResultActivity.this, ChatActivity.class));
+                return true;
+            } else if (itemId == R.id.nav_home) {
+                startActivity(new Intent(NeedResultActivity.this, MainActivity.class));
+                return true;
+            } else if (itemId == R.id.nav_mypage) {
+                startActivity(new Intent(NeedResultActivity.this, MyPageActivity.class));
+                return true;
+            } else {
+                return false;
+            }
+        });
     }
 
     private List<String> getSearchResults(String keyword) {

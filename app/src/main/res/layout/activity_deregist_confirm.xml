@@ -45,22 +45,5 @@
     </LinearLayout>
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/mainContent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/bottomNavigation" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/smlight"
-        app:itemIconSize="24dp"
-        app:itemTextAppearanceActive="@style/TextAppearance.AppCompat.Medium"
-        app:itemTextAppearanceInactive="@style/TextAppearance.AppCompat.Medium"
-        app:menu="@menu/bottom_nav_menu" />
-
 </RelativeLayout>
 
