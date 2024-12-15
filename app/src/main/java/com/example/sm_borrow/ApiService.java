@@ -1,10 +1,31 @@
 package com.example.sm_borrow;
 
+import com.example.sm_borrow.data.LentItem;
+
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiService {
-    @POST("/api/items/save") // 서버 엔드포인트 설정
-    Call<Void> saveItem(@Body ItemRequest itemRequest); // 서버에 데이터 전송
+    // 빌려준 물건 목록 조회
+    @GET("/api/lent-items")
+    Call<List<LentItem>> getLentItems(@Query("userId") Long userId);
+
+    // 빌려주는 물건 추가
+    @POST("/api/lent-items")
+    Call<LentItem> addLentItem(
+            @Body ItemRequest itemRequest,
+            @Query("userId") Long userId,
+            @Query("specialNote") String specialNote
+    );
+
+    // 빌려준 물건 삭제
+    @DELETE("/api/lent-items/{lentItemId}")
+    Call<Void> deleteLentItem(@Path("lentItemId") Long lentItemId);
 }
