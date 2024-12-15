@@ -16,13 +16,8 @@
 
         <TextView
             android:id="@+id/text_button_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:text="선택한 물품"
-            android:textSize="20sp"
-            android:textColor="#000000"
-            android:gravity="center"
-            android:layout_marginBottom="4dp" />
+            style="@style/Title" />
 
         <!-- 제목 -->
         <TextView
@@ -51,35 +46,17 @@
             android:orientation="vertical"
             android:gravity="center">
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <android.widget.Button
                 android:text="500원"
-                android:background="@drawable/outline_button"
-                android:textColor="#002D8C"
-                android:layout_marginBottom="16dp"
-                android:padding="16dp"
-                android:textSize="16sp" />
+                style="@style/PriceButton"/>
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <android.widget.Button
                 android:text="1000원"
-                android:background="@drawable/outline_button"
-                android:textColor="#002D8C"
-                android:layout_marginBottom="16dp"
-                android:padding="16dp"
-                android:textSize="16sp" />
+                style="@style/PriceButton"/>
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <android.widget.Button
                 android:text="1500원"
-                android:background="@drawable/outline_button"
-                android:textColor="#002D8C"
-                android:layout_marginBottom="32dp"
-                android:padding="16dp"
-                android:textSize="16sp" />
+                style="@style/PriceButton" />
         </LinearLayout>
 
         <!-- 특이사항 입력란 -->
@@ -88,7 +65,9 @@
             android:layout_height="wrap_content"
             android:text="특이사항"
             android:textSize="16sp"
+            android:gravity="center"
             android:textColor="#000000"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp" />
 
         <EditText
@@ -102,15 +81,9 @@
             android:layout_marginBottom="24dp" />
 
         <!-- 등록 버튼 -->
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <android.widget.Button
             android:text="등록"
-            android:backgroundTint="#002D8C"
-            android:textColor="#FFFFFF"
-            android:padding="16dp"
-            android:textSize="16sp"
-            android:layout_gravity="center" />
+            style="@style/CommonButton"/>
     </LinearLayout>
     <FrameLayout
         android:id="@+id/mainContent"
@@ -123,7 +96,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/white"
+        android:background="@color/smlight"
         app:itemIconSize="24dp"
         app:itemTextAppearanceActive="@style/TextAppearance.AppCompat.Medium"
         app:itemTextAppearanceInactive="@style/TextAppearance.AppCompat.Small"

@@ -19,11 +19,11 @@
         android:textStyle="bold"
         android:gravity="center"
         android:layout_marginTop="25dp"
-        android:layout_marginBottom="25dp"/>
+        android:layout_marginBottom="50dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"/>
 
 
-        <Button
+        <android.widget.Button
             android:id="@+id/confirmButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -66,10 +66,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/white"
+        android:background="@color/smlight"
         app:itemIconSize="24dp"
         app:itemTextAppearanceActive="@style/TextAppearance.AppCompat.Medium"
-        app:itemTextAppearanceInactive="@style/TextAppearance.AppCompat.Small"
+        app:itemTextAppearanceInactive="@style/TextAppearance.AppCompat.Medium"
         app:menu="@menu/bottom_nav_menu" />
 
 </RelativeLayout>

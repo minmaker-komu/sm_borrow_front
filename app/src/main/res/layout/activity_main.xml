@@ -17,19 +17,18 @@
         android:gravity="center"
         android:padding="16dp">
 
-        <Button
+        <android.widget.Button
             android:id="@+id/rentButton"
             style="@style/CommonButton"
             android:text="대여하기"/>
 
-        <Button
+        <android.widget.Button
             android:id="@+id/lendButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/CommonButton"
             android:text="빌려주기"
             android:layout_marginTop="16dp"/>
-
     </LinearLayout>
 
     <FrameLayout
@@ -43,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/white"
+        android:background="@color/smlight"
         app:itemIconSize="24dp"
         app:itemTextAppearanceActive="@style/TextAppearance.AppCompat.Medium"
         app:itemTextAppearanceInactive="@style/TextAppearance.AppCompat.Small"

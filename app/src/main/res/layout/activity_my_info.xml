@@ -81,13 +81,13 @@
         android:hint="비밀번호를 한 번더 입력해주세요."/>
 
     <!-- 수정 버튼 -->
-    <Button
+    <android.widget.Button
         android:id="@+id/correct"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/CommonButton"
         android:text="수정"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="25dp"/>
 
    </LinearLayout>
 
@@ -96,7 +96,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/white"
+        android:background="@color/smlight"
         app:itemIconSize="24dp"
         app:itemTextAppearanceActive="@style/TextAppearance.AppCompat.Medium"
         app:itemTextAppearanceInactive="@style/TextAppearance.AppCompat.Small"
