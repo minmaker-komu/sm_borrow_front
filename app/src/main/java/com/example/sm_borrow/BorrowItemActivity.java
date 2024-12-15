@@ -23,7 +23,7 @@ public class BorrowItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_borrow_item);
 
-        recyclerViewBorrowedItems = findViewById(R.id.recyclerViewBorrowedItems);
+        recyclerViewBorrowedItems = findViewById(R.id.recyclerView);
 
         // 데이터 초기화 (추후 서버에서 받아올 수 있도록 수정)
         borrowedItemList = new ArrayList<>();
@@ -37,6 +37,7 @@ public class BorrowItemActivity extends AppCompatActivity {
 
         //네비
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setSelectedItemId(R.id.nav_mypage);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_chat) {

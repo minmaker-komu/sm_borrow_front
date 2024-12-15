@@ -42,10 +42,11 @@ public class MyPageActivity extends AppCompatActivity {
 
         // 하단 네비게이션 뷰 설정
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setSelectedItemId(R.id.nav_mypage);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_chat) {
-                startActivity(new Intent(MyPageActivity.this, ChatActivity.class));
+                startActivity(new Intent(MyPageActivity.this, ChatListActivity.class));
                 return true;
             } else if (itemId == R.id.nav_home) {
                 startActivity(new Intent(MyPageActivity.this, MainActivity.class));

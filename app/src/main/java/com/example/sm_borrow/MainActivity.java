@@ -6,12 +6,16 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -24,16 +28,20 @@ public class MainActivity extends AppCompatActivity {
 
         //네비
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setSelectedItemId(R.id.nav_home);
+
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_chat) {
-                startActivity(new Intent(MainActivity.this, ChatActivity.class));
+                Intent intent = new Intent(MainActivity.this, ChatListActivity.class);
+                startActivity(intent);
                 return true;
             } else if (itemId == R.id.nav_home) {
                 // 현재 페이지
                 return true;
             } else if (itemId == R.id.nav_mypage) {
-                startActivity(new Intent(MainActivity.this, MyPageActivity.class));
+                Intent intent = new Intent(MainActivity.this, MyPageActivity.class);
+                startActivity(intent);
                 return true;
             } else {
                 return false;
@@ -42,9 +50,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Add Buttons in Main Page
         Button rentButton = findViewById(R.id.rentButton);
-        rentButton.setOnClickListener(v -> Toast.makeText(this, "Rent button clicked!", Toast.LENGTH_SHORT).show());
+        rentButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, NeedActivity.class)));
 
         Button lendButton = findViewById(R.id.lendButton);
-        lendButton.setOnClickListener(v -> Toast.makeText(this, "Lend button clicked!", Toast.LENGTH_SHORT).show());
+        lendButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, HaveActivity.class)));
     }
 }

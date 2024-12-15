@@ -1,5 +1,6 @@
 package com.example.sm_borrow;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -33,15 +34,17 @@ public class LoginActivity extends AppCompatActivity {
             email = emailField.getText().toString().trim();
             password = passwordField.getText().toString().trim();
 
-            // 유효성
+            // 유효성 - 추가 필요
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(LoginActivity.this, "아이디와 비밀번호를 입력해주세요!", Toast.LENGTH_SHORT).show();
             } else {
-                //여기부터 서버
                 Toast.makeText(LoginActivity.this, "로그인 성공: " + email, Toast.LENGTH_SHORT).show();
 
                 Log.d("LoginActivity", "Email: " + email);
                 Log.d("LoginActivity", "Password: " + password);
+
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -1,30 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".ChatListActivity">
-
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:background="#FFFFFF">
+    android:layout_height="match_parent">
 
-    <TextView
-        style="@style/Title"
-        android:text="빌린 물품 조회"/>
-
-    <!-- RecyclerView -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewBorrowedItems"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="8dp"/>
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/Title"
+            android:text="빌린 물품 조회"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/mainContent"
@@ -42,5 +38,4 @@ tools:context=".ChatListActivity">
         app:itemTextAppearanceActive="@style/TextAppearance.AppCompat.Medium"
         app:itemTextAppearanceInactive="@style/TextAppearance.AppCompat.Medium"
         app:menu="@menu/bottom_nav_menu" />
-
 </RelativeLayout>

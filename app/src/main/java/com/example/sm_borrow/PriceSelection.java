@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,9 +50,24 @@ public class PriceSelection extends AppCompatActivity {
         itemNameTextView.setText("선택된 물품: " + itemName);
 
         // 가격 버튼 클릭 이벤트
-        price500.setOnClickListener(v -> selectedPrice = "500원");
-        price1000.setOnClickListener(v -> selectedPrice = "1000원");
-        price1500.setOnClickListener(v -> selectedPrice = "1500원");
+        price500.setOnClickListener(v -> {
+            selectedPrice = "500원";
+            price500.setBackground(getDrawable(R.drawable.selected_button));
+            price1000.setBackground(getDrawable(R.drawable.common_button));
+            price1500.setBackground(getDrawable(R.drawable.common_button));
+        });
+        price1000.setOnClickListener(v -> {
+            selectedPrice = "1000원";
+            price500.setBackground(getDrawable(R.drawable.common_button));
+            price1000.setBackground(getDrawable(R.drawable.selected_button));
+            price1500.setBackground(getDrawable(R.drawable.common_button));
+        });
+        price1500.setOnClickListener(v -> {
+            selectedPrice = "1500원";
+            price500.setBackground(getDrawable(R.drawable.common_button));
+            price1000.setBackground(getDrawable(R.drawable.common_button));
+            price1500.setBackground(getDrawable(R.drawable.selected_button));
+        });
 
         // 등록 버튼 클릭 이벤트
         submitButton.setOnClickListener(v -> {
@@ -58,9 +75,28 @@ public class PriceSelection extends AppCompatActivity {
 
             // 서버로 데이터 전송
             sendDataToServer(itemName, selectedPrice, specialNote);
+
+            startActivity(new Intent(PriceSelection.this, MainActivity.class));
         });
 
-
+        //네비
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setSelectedItemId(R.id.nav_home);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_chat) {
+                startActivity(new Intent(PriceSelection.this, ChatListActivity.class));
+                return true;
+            } else if (itemId == R.id.nav_home) {
+                startActivity(new Intent(PriceSelection.this, MainActivity.class));
+                return true;
+            } else if (itemId == R.id.nav_mypage) {
+                startActivity(new Intent(PriceSelection.this, MyPageActivity.class));
+                return true;
+            } else {
+                return false;
+            }
+        });
 
         // Intent로 넘어온 버튼 정보 받기
         String buttonInfo = getIntent().getStringExtra("BUTTON_INFO");

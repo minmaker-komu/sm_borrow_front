@@ -33,10 +33,11 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
 
         // 네비게이션 뷰 설정
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setSelectedItemId(R.id.nav_home);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_chat) {
-                startActivity(new Intent(NotificationActivity.this, ChatActivity.class));
+                startActivity(new Intent(NotificationActivity.this, ChatListActivity.class));
                 return true;
             } else if (itemId == R.id.nav_home) {
                 startActivity(new Intent(NotificationActivity.this, MainActivity.class));

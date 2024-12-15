@@ -1,5 +1,6 @@
 package com.example.sm_borrow;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -53,6 +54,9 @@ public class SignupActivity extends AppCompatActivity {
                     Log.d("SignUpActivity", "Email: " + email);
                     Log.d("SignUpActivity", "Name: " + name);
                     Log.d("SignUpActivity", "Password: " + password);
+
+                    Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
             }
         });
