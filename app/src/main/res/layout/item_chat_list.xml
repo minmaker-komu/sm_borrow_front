@@ -1,0 +1,44 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:background="#F5F5F5"
+    android:layout_marginBottom="8dp"
+    android:elevation="4dp">
+
+    <!-- 아이템 이미지 -->
+    <ImageView
+        android:id="@+id/image_item"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_launcher_foreground"
+        android:contentDescription="아이템 이미지"
+        android:layout_marginEnd="8dp" />
+
+    <!-- 채팅 정보 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- 아이템 이름 -->
+        <TextView
+            android:id="@+id/text_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="아이템 이름"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+
+        <!-- 최근 메시지 -->
+        <TextView
+            android:id="@+id/text_last_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="최근 메시지"
+            android:textSize="14sp"
+            android:textColor="#888888" />
+    </LinearLayout>
+</LinearLayout>
