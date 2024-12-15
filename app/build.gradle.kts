@@ -8,8 +8,8 @@ android {
 
     defaultConfig {
         applicationId = "com.example.sm_borrow"
-        minSdk = 24
-        targetSdk = 34
+        minSdk = 21
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 
