@@ -1,5 +1,6 @@
 package com.example.sm_borrow;
 
+import com.example.sm_borrow.data.AlertDto;
 import com.example.sm_borrow.data.BorrowedItemDto;
 import com.example.sm_borrow.data.LentItem;
 import com.example.sm_borrow.data.LentItemDto;
@@ -43,6 +44,9 @@ public interface ApiService {
     // 빌려준 물건 추가
     @POST("/api/borrowed-items/add")
     Call<LentItemDto> addBorrowedItem(@Body LentItemDto lentItemDto);
+
+    @GET("/api/alerts")
+    Call<List<AlertDto>> getAlerts(@Query("userId") Long userId);
 
 
 

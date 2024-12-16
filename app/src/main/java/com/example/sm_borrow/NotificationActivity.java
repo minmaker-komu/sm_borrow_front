@@ -1,74 +1,76 @@
 package com.example.sm_borrow;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import com.example.sm_borrow.data.AlertDto;
+import com.example.sm_borrow.network.ApiService;
+import com.example.sm_borrow.network.RetrofitClient;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotificationActivity extends AppCompatActivity implements NotificationAdapter.OnItemActionListener {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class NotificationActivity extends AppCompatActivity {
+
+    private RecyclerView notificationRecyclerView;
+    private NotificationAdapter notificationAdapter;
+    private List<AlertDto> alertList;
+    private ApiService apiService;
+    private Long userId = 1L; // 사용자 ID 예시
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
-        RecyclerView requestRecyclerView = findViewById(R.id.recycler_view_request);
-        RecyclerView availableRecyclerView = findViewById(R.id.recycler_view_available);
+        // RecyclerView 초기화
+        notificationRecyclerView = findViewById(R.id.recycler_view_request);
+        notificationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        List<NotificationItem> requestItems = fetchDataFromServer();
-        List<NotificationItem> availableItems = fetchDataFromServer();
+        alertList = new ArrayList<>();
+        notificationAdapter = new NotificationAdapter(this, alertList, (item, holder) -> {
+            // 예시 승인 버튼 로직
+            Toast.makeText(NotificationActivity.this, "승인 처리: " + item.getId(), Toast.LENGTH_SHORT).show();
+        }, (item, holder) -> {
+            // 예시 거절 버튼 로직
+            Toast.makeText(NotificationActivity.this, "거절 처리: " + item.getId(), Toast.LENGTH_SHORT).show();
+        });
+        notificationRecyclerView.setAdapter(notificationAdapter);
 
-        // 어댑터 설정
-        requestRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        requestRecyclerView.setAdapter(new NotificationAdapter(this, requestItems, this));
+        // Retrofit 초기화
+        apiService = RetrofitClient.getApiService();
 
-        availableRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        availableRecyclerView.setAdapter(new NotificationAdapter(this, availableItems, this));
+        // 알람 데이터 가져오기
+        fetchAlerts();
+    }
 
-        // 네비게이션 뷰 설정
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            int itemId = item.getItemId();
-            if (itemId == R.id.nav_chat) {
-                startActivity(new Intent(NotificationActivity.this, ChatActivity.class));
-                return true;
-            } else if (itemId == R.id.nav_home) {
-                startActivity(new Intent(NotificationActivity.this, MainActivity.class));
-                return true;
-            } else if (itemId == R.id.nav_mypage) {
-                Intent intentm = new Intent(NotificationActivity.this, MyPageActivity.class);
-                startActivity(intentm);
-                return true;
-            } else {
-                return false;
+    private void fetchAlerts() {
+        apiService.getAlerts(userId).enqueue(new Callback<List<AlertDto>>() {
+            @Override
+            public void onResponse(Call<List<AlertDto>> call, Response<List<AlertDto>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    alertList.clear();
+                    alertList.addAll(response.body());
+                    notificationAdapter.notifyDataSetChanged(); // RecyclerView 업데이트
+                } else {
+                    Toast.makeText(NotificationActivity.this, "알람 데이터를 가져올 수 없습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<AlertDto>> call, Throwable t) {
+                Toast.makeText(NotificationActivity.this, "네트워크 오류: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("NotificationActivity", "Error fetching alerts", t);
             }
         });
-    }
-
-    private List<NotificationItem> fetchDataFromServer() {
-        List<NotificationItem> data = new ArrayList<>();
-        data.add(new NotificationItem("https://example.com/image1.jpg", "C-type 충전기", "500원/시간 당", ""));
-        data.add(new NotificationItem("https://example.com/image2.jpg", "삼성 노트북 충전기", "500원/시간 당", ""));
-        return data;
-    }
-
-    @Override
-    public void onAccept(NotificationItem item, NotificationAdapter.ViewHolder holder) {
-        item.setStatusMessage("승인되었습니다.");
-        holder.statusMessage.setText(item.getStatusMessage());
-        // 서버로 상태 전송 로직 추가
-    }
-
-    @Override
-    public void onReject(NotificationItem item, NotificationAdapter.ViewHolder holder) {
-        item.setStatusMessage("거절되었습니다.");
-        holder.statusMessage.setText(item.getStatusMessage());
-        // 서버로 상태 전송 로직 추가
     }
 }
