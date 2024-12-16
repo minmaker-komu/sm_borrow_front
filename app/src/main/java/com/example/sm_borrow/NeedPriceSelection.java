@@ -27,20 +27,17 @@ public class NeedPriceSelection extends AppCompatActivity {
     private TextView itemNameTextView;
     private int selectedPrice = 500; // 기본 가격 선택값
     private EditText specialNoteEditText;
+    private String buttonInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_need_price_selection);
-        Button submitButton = findViewById(R.id.submit);
 
         // UI 요소 초기화
         itemNameTextView = findViewById(R.id.text_button_info);
-        Button price500 = findViewById(R.id.button_price_500);
-        Button price1000 = findViewById(R.id.button_price_1000);
-        Button price1500 = findViewById(R.id.button_price_1500);
-        Button submitButton = findViewById(R.id.button_submit);
-        specialNoteEditText = findViewById(R.id.edit_special_note);
+        Button submitButton = findViewById(R.id.submit);
+        specialNoteEditText = findViewById(R.id.special);
 
         // 텍스트 뷰에 버튼 정보 표시 (예시)
         TextView textView = findViewById(R.id.text_button_info);
@@ -52,19 +49,19 @@ public class NeedPriceSelection extends AppCompatActivity {
         Button price1500 = findViewById(R.id.price1500);
 
         price500.setOnClickListener(v -> {
-            selectedPrice = "500원";
+            selectedPrice = 500;
             price500.setBackground(getDrawable(R.drawable.selected_button));
             price1000.setBackground(getDrawable(R.drawable.common_button));
             price1500.setBackground(getDrawable(R.drawable.common_button));
         });
         price1000.setOnClickListener(v -> {
-            selectedPrice = "1000원";
+            selectedPrice = 1000;
             price500.setBackground(getDrawable(R.drawable.common_button));
             price1000.setBackground(getDrawable(R.drawable.selected_button));
             price1500.setBackground(getDrawable(R.drawable.common_button));
         });
         price1500.setOnClickListener(v -> {
-            selectedPrice = "1500원";
+            selectedPrice = 1500;
             price500.setBackground(getDrawable(R.drawable.common_button));
             price1000.setBackground(getDrawable(R.drawable.common_button));
             price1500.setBackground(getDrawable(R.drawable.selected_button));
@@ -107,7 +104,6 @@ public class NeedPriceSelection extends AppCompatActivity {
         } else {
             Toast.makeText(this, "아이템 정보를 불러올 수 없습니다.", Toast.LENGTH_SHORT).show();
             finish();
-            return;
         }
 
         // 가격 버튼 클릭 이벤트
@@ -128,13 +124,18 @@ public class NeedPriceSelection extends AppCompatActivity {
             Long userId = 1L;
 
             // 서버로 데이터 전송
-            sendDataToServer(itemName, selectedPrice, specialNote, userId);
+            //sendDataToServer(itemName, selectedPrice, specialNote, userId);
         });
-    }
+    });
 
-    private void sendDataToServer(String itemName, int price, String specialNote, Long userId) {
-        // ItemRequest 객체 생성
-        ItemRequest itemRequest = new ItemRequest(null, itemName, price, specialNote);
+//    private void sendDataToServer(String itemName, int price, String specialNote, Long userId) {
+//        // ItemRequest 객체 생성
+//        ItemRequest itemRequest = new ItemRequest(null, itemName, price, specialNote);
+
+        //더미
+            long userId = 1L;
+            String specialNote = "1s";
+            ItemRequest itemRequest = new ItemRequest(null, null, null, null);
 
         // API 호출
         apiService.addLentItem(itemRequest, userId, specialNote).enqueue(new Callback<LentItem>() {
