@@ -38,7 +38,7 @@ public class BorrowItemActivity extends AppCompatActivity {
 
         // Retrofit 초기화
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://172.20.5.227:8080/") // 서버의 BASE URL
+                .baseUrl("http://172.20.5.39:8080/") // 서버의 BASE URL
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiService = retrofit.create(ApiService.class);

@@ -14,6 +14,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -45,11 +46,22 @@ public interface ApiService {
     @POST("/api/borrowed-items/add")
     Call<LentItemDto> addBorrowedItem(@Body LentItemDto lentItemDto);
 
-    @GET("/api/alerts")
+
+
+
+    // 알림 조회
+    @GET("api/alerts")
     Call<List<AlertDto>> getAlerts(@Query("userId") Long userId);
 
+    @GET("/api/alerts/borrower")
+    Call<List<AlertDto>> getBorrowerAlerts(@Query("memberId") Long memberId);
 
+    @GET("/api/alerts/lender")
+    Call<List<AlertDto>> getLenderAlerts(@Query("memberId") Long memberId);
 
+    // 알림 상태 업데이트 (승인 또는 거절)
+    @PATCH("api/alerts/{id}")
+    Call<Void> updateAlertStatus(@Path("id") Long alertId, @Query("status") String status);
 
 
 

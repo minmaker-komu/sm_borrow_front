@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sm_borrow.data.AlertDto;
-import com.example.sm_borrow.network.ApiService;
 import com.example.sm_borrow.network.RetrofitClient;
 
 import java.util.ArrayList;
@@ -21,11 +20,12 @@ import retrofit2.Response;
 
 public class NotificationActivity extends AppCompatActivity {
 
-    private RecyclerView notificationRecyclerView;
-    private NotificationAdapter notificationAdapter;
-    private List<AlertDto> alertList;
+    private RecyclerView requestRecyclerView, availableRecyclerView;
+    private NotificationAdapter requestAdapter, availableAdapter;
+
+    private List<AlertDto> requestList, availableList; // 구해요, 있어요 리스트
     private ApiService apiService;
-    private Long userId = 1L; // 사용자 ID 예시
+    private Long userId = 1L; // 현재 사용자 ID
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,43 +33,79 @@ public class NotificationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notification);
 
         // RecyclerView 초기화
-        notificationRecyclerView = findViewById(R.id.recycler_view_request);
-        notificationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        requestRecyclerView = findViewById(R.id.recycler_view_request);
+        availableRecyclerView = findViewById(R.id.recycler_view_available);
 
-        alertList = new ArrayList<>();
-        notificationAdapter = new NotificationAdapter(this, alertList, (item, holder) -> {
-            // 예시 승인 버튼 로직
-            Toast.makeText(NotificationActivity.this, "승인 처리: " + item.getId(), Toast.LENGTH_SHORT).show();
-        }, (item, holder) -> {
-            // 예시 거절 버튼 로직
-            Toast.makeText(NotificationActivity.this, "거절 처리: " + item.getId(), Toast.LENGTH_SHORT).show();
-        });
-        notificationRecyclerView.setAdapter(notificationAdapter);
+        requestRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        availableRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Retrofit 초기화
+        // 어댑터 초기화
+        requestList = new ArrayList<>();
+        availableList = new ArrayList<>();
+
+        requestAdapter = new NotificationAdapter(this, requestList, this::updateAlertStatus);
+        availableAdapter = new NotificationAdapter(this, availableList, this::updateAlertStatus);
+
+        requestRecyclerView.setAdapter(requestAdapter);
+        availableRecyclerView.setAdapter(availableAdapter);
+
+        // Retrofit API 설정
         apiService = RetrofitClient.getApiService();
-
-        // 알람 데이터 가져오기
         fetchAlerts();
     }
 
+    /**
+     * 서버에서 알림 데이터를 가져와 구해요와 있어요로 나눕니다.
+     */
     private void fetchAlerts() {
         apiService.getAlerts(userId).enqueue(new Callback<List<AlertDto>>() {
             @Override
             public void onResponse(Call<List<AlertDto>> call, Response<List<AlertDto>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    alertList.clear();
-                    alertList.addAll(response.body());
-                    notificationAdapter.notifyDataSetChanged(); // RecyclerView 업데이트
+                    requestList.clear();
+                    availableList.clear();
+
+                    for (AlertDto alert : response.body()) {
+                        if (alert.getBorrowerId().equals(userId)) {
+                            requestList.add(alert); // 구해요
+                        } else if (alert.getLenderId().equals(userId)) {
+                            availableList.add(alert); // 있어요
+                        }
+                    }
+
+                    requestAdapter.notifyDataSetChanged();
+                    availableAdapter.notifyDataSetChanged();
                 } else {
-                    Toast.makeText(NotificationActivity.this, "알람 데이터를 가져올 수 없습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NotificationActivity.this, "알림 데이터를 가져올 수 없습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<AlertDto>> call, Throwable t) {
-                Toast.makeText(NotificationActivity.this, "네트워크 오류: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e("NotificationActivity", "Error fetching alerts", t);
+                Toast.makeText(NotificationActivity.this, "네트워크 오류: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    /**
+     * 알림 상태를 업데이트합니다 (승인 또는 거절).
+     */
+    private void updateAlertStatus(AlertDto alert, String status) {
+        apiService.updateAlertStatus(alert.getId(), status).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(NotificationActivity.this, status + " 처리 완료", Toast.LENGTH_SHORT).show();
+                    fetchAlerts(); // 업데이트 후 새로고침
+                } else {
+                    Toast.makeText(NotificationActivity.this, "상태 업데이트 실패", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("NotificationActivity", "Error updating alert status", t);
             }
         });
     }

@@ -17,15 +17,17 @@ import java.util.List;
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
 
     private final Context context;
-    private final List<AlertDto> items;
-    private final OnItemActionListener acceptListener;
-    private final OnItemActionListener rejectListener;
+    private final List<AlertDto> alertList;
+    private final OnActionListener actionListener;
 
-    public NotificationAdapter(Context context, List<AlertDto> items, OnItemActionListener acceptListener, OnItemActionListener rejectListener) {
+    public interface OnActionListener {
+        void onAction(AlertDto alert, String status);
+    }
+
+    public NotificationAdapter(Context context, List<AlertDto> alertList, OnActionListener actionListener) {
         this.context = context;
-        this.items = items;
-        this.acceptListener = acceptListener;
-        this.rejectListener = rejectListener;
+        this.alertList = alertList;
+        this.actionListener = actionListener;
     }
 
     @NonNull
@@ -37,19 +39,19 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        AlertDto alert = items.get(position);
+        AlertDto alert = alertList.get(position);
 
         holder.itemName.setText("아이템 ID: " + alert.getItemId());
         holder.status.setText("상태: " + alert.getStatus());
         holder.createdAt.setText("생성일: " + alert.getCreatedAt());
 
-        holder.acceptButton.setOnClickListener(v -> acceptListener.onAction(alert, holder));
-        holder.rejectButton.setOnClickListener(v -> rejectListener.onAction(alert, holder));
+        holder.acceptButton.setOnClickListener(v -> actionListener.onAction(alert, "승인"));
+        holder.rejectButton.setOnClickListener(v -> actionListener.onAction(alert, "거절"));
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return alertList.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -60,12 +62,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             super(itemView);
             itemName = itemView.findViewById(R.id.text_item_name);
             status = itemView.findViewById(R.id.text_status);
+            //createdAt = itemView.findViewById(R.id.text_created_at);
             acceptButton = itemView.findViewById(R.id.button_accept);
             rejectButton = itemView.findViewById(R.id.button_reject);
         }
-    }
-
-    public interface OnItemActionListener {
-        void onAction(AlertDto item, ViewHolder holder);
     }
 }
