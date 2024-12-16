@@ -13,6 +13,9 @@ public class MyPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_page); // 작성한 XML 파일과 연결
 
+        // Intent에서 멤버 ID 가져오기
+        Long memberId = getIntent().getLongExtra("MEMBER_ID", -1);
+
         // 버튼 설정
         Button infoButton = findViewById(R.id.InfoButton);
         Button myItemButton = findViewById(R.id.MyItem);
@@ -22,21 +25,25 @@ public class MyPageActivity extends AppCompatActivity {
         // 버튼 클릭 시 다른 액티비티로 이동
         infoButton.setOnClickListener(v -> {
             Intent intent = new Intent(MyPageActivity.this, MyInfoActivity.class);
+            intent.putExtra("MEMBER_ID", memberId);
             startActivity(intent);
         });
 
         myItemButton.setOnClickListener(v -> {
             Intent intent = new Intent(MyPageActivity.this, ItemActivity.class);
+            intent.putExtra("MEMBER_ID", memberId);
             startActivity(intent);
         });
 
         borrowItemButton.setOnClickListener(v -> {
             Intent intent = new Intent(MyPageActivity.this, BorrowItemActivity.class);
+            intent.putExtra("MEMBER_ID", memberId);
             startActivity(intent);
         });
 
         deregistButton.setOnClickListener(v -> {
             Intent intent = new Intent(MyPageActivity.this, DeregistActivity.class);
+            intent.putExtra("MEMBER_ID", memberId);
             startActivity(intent);
         });
 

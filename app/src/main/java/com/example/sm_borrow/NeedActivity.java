@@ -10,10 +10,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class NeedActivity extends AppCompatActivity {
 
+    Long memberId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_need); // 첫 번째 화면 XML 파일
+
+        memberId = getIntent().getLongExtra("MEMBER_ID", -1);
 
         // 버튼 설정
         Button btnCharger = findViewById(R.id.btn_charger);
@@ -53,6 +57,7 @@ public class NeedActivity extends AppCompatActivity {
     private void navigateToResult(String keyword) {
         Intent intent = new Intent(NeedActivity.this, NeedResultActivity.class);
         intent.putExtra("SEARCH_KEYWORD", keyword); // 검색어 전달
+        intent.putExtra("MEMBER_ID", memberId); // MEMBER_ID 전달
         startActivity(intent);
     }
 }

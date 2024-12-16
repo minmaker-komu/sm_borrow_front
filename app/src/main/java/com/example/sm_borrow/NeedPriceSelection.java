@@ -49,6 +49,7 @@ public class NeedPriceSelection extends AppCompatActivity {
 
         // Intent로 전달된 아이템 이름 받기
         String itemName = getIntent().getStringExtra("BUTTON_INFO");
+        //Long memberId = getIntent().getLongExtra("MEMBER_ID", -1);
         if (itemName != null) {
             itemNameTextView.setText("선택된 물품: " + itemName);
         } else {

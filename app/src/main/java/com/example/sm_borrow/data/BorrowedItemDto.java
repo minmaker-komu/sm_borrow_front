@@ -1,29 +1,25 @@
 package com.example.sm_borrow.data;
 
-public class LentItemDto {
-    private Long id;
-    private Long itemId;
-    private Long memberId;
-    private String itemName;
-    private int price;
-    private String specialNote;
-    private String createdAt;
+import java.time.LocalDateTime;
 
-    // 기본 생성자
-    public LentItemDto() {}
+public class BorrowedItemDto {
+    private Long id; // 빌린 물건 ID
+    private Long itemId; // 아이템 ID
+    private String itemName; // 아이템 이름
+    private int price; // 가격
+    private String specialNote; // 특별사항
+    private LocalDateTime borrowedTime; // 빌린 시간
 
-    // 생성자
-    public LentItemDto(Long id, Long itemId, Long memberId, String itemName, int price, String specialNote, String createdAt) {
+    public BorrowedItemDto(Long id, Long itemId, String itemName, int price, String specialNote, LocalDateTime borrowedTime) {
         this.id = id;
         this.itemId = itemId;
-        this.memberId = memberId;
         this.itemName = itemName;
         this.price = price;
         this.specialNote = specialNote;
-        this.createdAt = createdAt;
+        this.borrowedTime = borrowedTime;
     }
 
-    // Getter 및 Setter
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -38,14 +34,6 @@ public class LentItemDto {
 
     public void setItemId(Long itemId) {
         this.itemId = itemId;
-    }
-
-    public Long getMemberId() {
-        return memberId;
-    }
-
-    public void setMemberId(Long memberId) {
-        this.memberId = memberId;
     }
 
     public String getItemName() {
@@ -72,11 +60,11 @@ public class LentItemDto {
         this.specialNote = specialNote;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
+    public LocalDateTime getBorrowedTime() {
+        return borrowedTime;
     }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+    public void setBorrowedTime(LocalDateTime borrowedTime) {
+        this.borrowedTime = borrowedTime;
     }
 }
