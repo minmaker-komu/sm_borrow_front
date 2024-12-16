@@ -4,13 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sm_borrow.data.LentItem;
-import com.example.sm_borrow.ItemRequest;
+import com.example.sm_borrow.data.LentItemDto;
+import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -80,25 +81,22 @@ public class NeedPriceSelection extends AppCompatActivity {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_chat) {
                 startActivity(new Intent(NeedPriceSelection.this, ChatListActivity.class));
-                return true;
             } else if (itemId == R.id.nav_home) {
                 startActivity(new Intent(NeedPriceSelection.this, MainActivity.class));
-                return true;
             } else if (itemId == R.id.nav_mypage) {
                 startActivity(new Intent(NeedPriceSelection.this, MyPageActivity.class));
-                return true;
             } else {
-                return false;
             }
         // Retrofit 설정
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://172.20.5.227:8080/") // 서버의 BASE URL
+                .baseUrl("http://172.20.5.39:8080/") // 서버의 BASE URL
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiService = retrofit.create(ApiService.class);
 
         // Intent로 전달된 아이템 이름 받기
         String itemName = getIntent().getStringExtra("BUTTON_INFO");
+        //Long memberId = getIntent().getLongExtra("MEMBER_ID", -1);
         if (itemName != null) {
             itemNameTextView.setText("선택된 물품: " + itemName);
         } else {
@@ -121,26 +119,34 @@ public class NeedPriceSelection extends AppCompatActivity {
             }
 
             // 예시 사용자 ID
-            Long userId = 1L;
+            Long userId = 1L; // 실제 사용자 ID를 앱에서 관리해야 함
 
             // 서버로 데이터 전송
-            //sendDataToServer(itemName, selectedPrice, specialNote, userId);
+            sendDataToServer(itemName, selectedPrice, specialNote, userId);
+            Toast.makeText(this, itemName+selectedPrice+selectedPrice+userId, Toast.LENGTH_SHORT).show();
         });
     });
 
-//    private void sendDataToServer(String itemName, int price, String specialNote, Long userId) {
-//        // ItemRequest 객체 생성
-//        ItemRequest itemRequest = new ItemRequest(null, itemName, price, specialNote);
+    private void sendDataToServer(String itemName, int price, String specialNote, Long userId) {
+        // LentItemDto 객체 생성
+        LentItemDto lentItemDto = new LentItemDto(
+                null, // 서버에서 생성될 ID
+                null, // 서버에서 생성될 itemId
+                userId, // 사용자 ID
+                itemName,
+                price,
+                specialNote,
+                null // 서버에서 생성될 createdAt
+        );
 
-        //더미
-            long userId = 1L;
-            String specialNote = "1s";
-            ItemRequest itemRequest = new ItemRequest(null, null, null, null);
+        // 디버깅용 JSON 출력
+        String jsonRequest = new Gson().toJson(lentItemDto);
+        Log.d("DEBUG", "JSON Request: " + jsonRequest);
 
         // API 호출
-        apiService.addLentItem(itemRequest, userId, specialNote).enqueue(new Callback<LentItem>() {
+        apiService.addLentItem(lentItemDto).enqueue(new Callback<LentItemDto>() {
             @Override
-            public void onResponse(Call<LentItem> call, Response<LentItem> response) {
+            public void onResponse(Call<LentItemDto> call, Response<LentItemDto> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(NeedPriceSelection.this, "등록 완료!", Toast.LENGTH_SHORT).show();
 
@@ -149,12 +155,12 @@ public class NeedPriceSelection extends AppCompatActivity {
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(NeedPriceSelection.this, "서버 오류 발생", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NeedPriceSelection.this, "서버 오류 발생: " + response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<LentItem> call, Throwable t) {
+            public void onFailure(Call<LentItemDto> call, Throwable t) {
                 Toast.makeText(NeedPriceSelection.this, "네트워크 오류 발생: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

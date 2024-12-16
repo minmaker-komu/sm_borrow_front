@@ -8,13 +8,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sm_borrow.data.BorrowedItemDto;
+
 import java.util.List;
 
 public class BorrowItemAdapter extends RecyclerView.Adapter<BorrowItemAdapter.ViewHolder> {
 
-    private List<BorrowItem> borrowedItemList;
+    private List<BorrowedItemDto> borrowedItemList;
 
-    public BorrowItemAdapter(List<BorrowItem> borrowedItemList) {
+    public BorrowItemAdapter(List<BorrowedItemDto> borrowedItemList) {
         this.borrowedItemList = borrowedItemList;
     }
 
@@ -28,9 +30,9 @@ public class BorrowItemAdapter extends RecyclerView.Adapter<BorrowItemAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        BorrowItem item = borrowedItemList.get(position);
+        BorrowedItemDto item = borrowedItemList.get(position);
         holder.text1.setText(item.getItemName());
-        holder.text2.setText("가격: " + item.getPrice() + " | 기간: " + item.getRentalPeriod());
+        holder.text2.setText("가격: " + item.getPrice() + "원 | 빌린날짜: " + item.getBorrowedTime());
     }
 
     @Override

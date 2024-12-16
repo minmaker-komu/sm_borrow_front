@@ -16,11 +16,13 @@ public class HaveResultAdapter extends RecyclerView.Adapter<HaveResultAdapter.Re
 
     private final List<String> items;
     private final Context context; // Context 추가
-    public HaveResultAdapter(Context context, List<String> items) {
+    private final Long memberId; // MEMBER_ID 추가
+
+    public HaveResultAdapter(Context context, List<String> items, Long memberId) {
         this.context = context; // Context 저장
         this.items = items;
+        this.memberId = memberId; // MEMBER_ID 저장
     }
-
 
     @NonNull
     @Override
@@ -38,8 +40,8 @@ public class HaveResultAdapter extends RecyclerView.Adapter<HaveResultAdapter.Re
         holder.button.setOnClickListener(v -> {
             Intent intent = new Intent(context, PriceSelection.class);
             intent.putExtra("BUTTON_INFO", item); // 버튼 정보를 전달
+            intent.putExtra("MEMBER_ID", memberId); // MEMBER_ID 전달
             context.startActivity(intent);
-
         });
     }
 

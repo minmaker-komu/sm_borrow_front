@@ -1,14 +1,16 @@
 package com.example.sm_borrow;
 
+import java.time.LocalDateTime;
+
 public class BorrowItem {
     private String itemName;
     private String price;
-    private String rentalPeriod;
+    private LocalDateTime createdAt;
 
-    public BorrowItem(String itemName, String price, String rentalPeriod) {
+    public BorrowItem(String itemName, String price, LocalDateTime createdAt) {
         this.itemName = itemName;
         this.price = price;
-        this.rentalPeriod = rentalPeriod;
+        this.createdAt = createdAt;
     }
 
     public String getItemName() {
@@ -19,8 +21,8 @@ public class BorrowItem {
         return price;
     }
 
-    public String getRentalPeriod() {
-        return rentalPeriod;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 }
 

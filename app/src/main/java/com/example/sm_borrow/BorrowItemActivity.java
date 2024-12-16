@@ -2,21 +2,32 @@ package com.example.sm_borrow;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sm_borrow.data.BorrowedItemDto;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+// 빌린 물품조회
 public class BorrowItemActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewBorrowedItems;
     private BorrowItemAdapter adapter;
-    private List<BorrowItem> borrowedItemList;
+    private List<BorrowedItemDto> borrowedItemList;
+    private ApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,17 +36,23 @@ public class BorrowItemActivity extends AppCompatActivity {
 
         recyclerViewBorrowedItems = findViewById(R.id.recyclerView);
 
-        // 데이터 초기화 (추후 서버에서 받아올 수 있도록 수정)
-        borrowedItemList = new ArrayList<>();
-        borrowedItemList.add(new BorrowItem("삼성 노트북 충전기", "500원/시간", "2024-04-01 ~ 2024-04-03"));
-        borrowedItemList.add(new BorrowItem("C-Type 충전기", "300원/시간", "2024-04-05 ~ 2024-04-06"));
+        // Retrofit 초기화
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://172.20.5.39:8080/") // 서버의 BASE URL
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        apiService = retrofit.create(ApiService.class);
 
-        // RecyclerView
+        // RecyclerView 초기화
+        borrowedItemList = new ArrayList<>();
         adapter = new BorrowItemAdapter(borrowedItemList);
         recyclerViewBorrowedItems.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewBorrowedItems.setAdapter(adapter);
 
-        //네비
+        // 서버에서 빌린 물품 데이터 가져오기
+        fetchBorrowedItems();
+
+        // 네비게이션 설정
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_mypage);
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -51,6 +68,30 @@ public class BorrowItemActivity extends AppCompatActivity {
                 return true;
             } else {
                 return false;
+            }
+        });
+    }
+
+    private void fetchBorrowedItems() {
+//        Long userId = getIntent().getLongExtra("MEMBER_ID", -1);
+        Long userId = 1L; // 임시로 사용자 ID를 1로 설정
+
+        apiService.getBorrowedItems(userId).enqueue(new Callback<List<BorrowedItemDto>>() {
+            @Override
+            public void onResponse(Call<List<BorrowedItemDto>> call, Response<List<BorrowedItemDto>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    borrowedItemList.clear();
+                    borrowedItemList.addAll(response.body());
+                    adapter.notifyDataSetChanged(); // RecyclerView 업데이트
+                } else {
+                    Toast.makeText(BorrowItemActivity.this, "서버에서 데이터를 가져오지 못했습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<BorrowedItemDto>> call, Throwable t) {
+                Toast.makeText(BorrowItemActivity.this, "네트워크 오류: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("BorrowItemActivity", "Error fetching borrowed items", t);
             }
         });
     }

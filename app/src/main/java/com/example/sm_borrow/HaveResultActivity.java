@@ -26,13 +26,16 @@ public class HaveResultActivity extends AppCompatActivity {
 
         // 전달된 검색어 가져오기
         String keyword = getIntent().getStringExtra("SEARCH_KEYWORD");
+        Long memberId = getIntent().getLongExtra("MEMBER_ID", -1);
         searchKeyword.setText(keyword);
 
         // RecyclerView 설정
         searchResultList.setLayoutManager(new LinearLayoutManager(this));
         List<String> results = getSearchResults(keyword);
-        HaveResultAdapter adapter = new HaveResultAdapter(this,results);
+        // Example usage
+        HaveResultAdapter adapter = new HaveResultAdapter(this, results, memberId);
         searchResultList.setAdapter(adapter);
+
 
         //네비
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);

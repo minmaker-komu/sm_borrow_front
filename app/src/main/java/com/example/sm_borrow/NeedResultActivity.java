@@ -26,12 +26,14 @@ public class NeedResultActivity extends AppCompatActivity {
 
         // 전달된 검색어 가져오기
         String keyword = getIntent().getStringExtra("SEARCH_KEYWORD");
+        Long memberId = getIntent().getLongExtra("MEMBER_ID", -1);
         searchKeyword.setText(keyword);
 
         // RecyclerView 설정
         searchResultList.setLayoutManager(new LinearLayoutManager(this));
         List<String> results = getSearchResults(keyword);
-        NeedResultAdapter adapter = new NeedResultAdapter(this, results); // 어댑터 이름 변경
+        // Example usage
+        NeedResultAdapter adapter = new NeedResultAdapter(this, results, memberId);
         searchResultList.setAdapter(adapter);
 
         //네비

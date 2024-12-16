@@ -8,13 +8,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sm_borrow.data.BorrowedItemDto;
+
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
-    private List<Item> itemList;
+    private List<BorrowedItemDto> itemList;
 
-    public ItemAdapter(List<Item> itemList) {
+    public ItemAdapter(List<BorrowedItemDto> itemList) {
         this.itemList = itemList;
     }
 
@@ -28,16 +30,16 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Item item = itemList.get(position);
-        holder.itemName.setText(item.getName());
-        holder.itemPrice.setText(item.getPrice());
-        holder.itemStatus.setText(item.getStatus());
+        BorrowedItemDto item = itemList.get(position);
+        holder.itemName.setText(item.getItemName());
+        holder.itemPrice.setText(item.getPrice() + "원");
+        holder.itemStatus.setText(item.getBorrowedTime().toString()); // 빌려준 시간 표시
 
-        // 상태에 따라 색상 변경
-        if ("대여 가능".equals(item.getStatus())) {
-            holder.itemStatus.setTextColor(0xff00ff00); // 초록색
-        } else {
+        // 상태에 따라 색상 변경 (예: 시간 기준으로 상태 처리)
+        if (item.getBorrowedTime() != null) {
             holder.itemStatus.setTextColor(0xFFFf0000); // 빨간색
+        } else {
+            holder.itemStatus.setTextColor(0xff00ff00); // 초록색
         }
     }
 
