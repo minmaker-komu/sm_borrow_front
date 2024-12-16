@@ -11,8 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.example.sm_borrow.data.LentItem;
-import com.example.sm_borrow.ItemRequest;
 import com.example.sm_borrow.data.LentItemDto;
 import com.google.gson.Gson;
 
@@ -96,15 +94,13 @@ public class PriceSelection extends AppCompatActivity {
             Long userId = 1L; // 실제 사용자 ID를 앱에서 관리해야 함
 
             // 서버로 데이터 전송
-            sendDataToServer(itemName, selectedPrice, specialNote);
+            sendDataToServer(itemName, selectedPrice, specialNote, userId);
+            Toast.makeText(this, itemName+selectedPrice+selectedPrice+userId, Toast.LENGTH_SHORT).show();        });
 
-            startActivity(new Intent(PriceSelection.this, MainActivity.class));
-        });
-
-        //네비
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
-        bottomNavigationView.setSelectedItemId(R.id.nav_home);
-        bottomNavigationView.setOnItemSelectedListener(item -> {
+            //네비
+            BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+            bottomNavigationView.setSelectedItemId(R.id.nav_home);
+            bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_chat) {
                 startActivity(new Intent(PriceSelection.this, ChatListActivity.class));
@@ -119,17 +115,7 @@ public class PriceSelection extends AppCompatActivity {
                 return false;
             }
         });
-
-        // Intent로 넘어온 버튼 정보 받기
-        String buttonInfo = getIntent().getStringExtra("BUTTON_INFO");
-
-        // 텍스트 뷰에 버튼 정보 표시 (예시)
-        TextView textView = findViewById(R.id.text_button_info);
-        textView.setText("선택된 물품: " + buttonInfo);
-
-        sendDataToServer(itemName, selectedPrice, specialNote, userId);
-        Toast.makeText(this, itemName+selectedPrice+selectedPrice+userId, Toast.LENGTH_SHORT).show();
-        };
+    };
 
     private void sendDataToServer(String itemName, int price, String specialNote, Long userId) {
         // LentItemDto 객체 생성
@@ -162,7 +148,6 @@ public class PriceSelection extends AppCompatActivity {
                     Toast.makeText(PriceSelection.this, "서버 오류 발생: " + response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onFailure(Call<LentItemDto> call, Throwable t) {
                 Toast.makeText(PriceSelection.this, "네트워크 오류 발생: " + t.getMessage(), Toast.LENGTH_SHORT).show();

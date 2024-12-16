@@ -1,5 +1,6 @@
 package com.example.sm_borrow;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sm_borrow.data.AlertDto;
 import com.example.sm_borrow.network.RetrofitClient;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,27 @@ public class NotificationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
+        // 네비게이션 뷰 설정
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setSelectedItemId(R.id.nav_home);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+                    int itemId = item.getItemId();
+                    if (itemId == R.id.nav_chat) {
+                        startActivity(new Intent(NotificationActivity.this, ChatListActivity.class));
+                        return true;
+                    } else if (itemId == R.id.nav_home) {
+                        startActivity(new Intent(NotificationActivity.this, MainActivity.class));
+                        return true;
+                    } else if (itemId == R.id.nav_mypage) {
+                        Intent intentm = new Intent(NotificationActivity.this, MyPageActivity.class);
+                        startActivity(intentm);
+                        return true;
+                    } else {
+                        return false;
+                    }
+        });
+
+
         // RecyclerView 초기화
         requestRecyclerView = findViewById(R.id.recycler_view_request);
         availableRecyclerView = findViewById(R.id.recycler_view_available);
@@ -39,23 +62,6 @@ public class NotificationActivity extends AppCompatActivity {
         requestRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         availableRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // 네비게이션 뷰 설정
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
-        bottomNavigationView.setSelectedItemId(R.id.nav_home);
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            int itemId = item.getItemId();
-            if (itemId == R.id.nav_chat) {
-                startActivity(new Intent(NotificationActivity.this, ChatListActivity.class));
-                return true;
-            } else if (itemId == R.id.nav_home) {
-                startActivity(new Intent(NotificationActivity.this, MainActivity.class));
-                return true;
-            } else if (itemId == R.id.nav_mypage) {
-                Intent intentm = new Intent(NotificationActivity.this, MyPageActivity.class);
-                startActivity(intentm);
-                return true;
-            } else {
-                return false;
         // 어댑터 초기화
         requestList = new ArrayList<>();
         availableList = new ArrayList<>();
