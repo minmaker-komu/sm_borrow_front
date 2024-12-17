@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.example.sm_borrow.data.LentItemDto;
 import com.google.gson.Gson;
 
@@ -61,9 +62,24 @@ public class PriceSelection extends AppCompatActivity {
         }
 
         // 가격 버튼 클릭 이벤트
-        price500.setOnClickListener(v -> selectedPrice = 500);
-        price1000.setOnClickListener(v -> selectedPrice = 1000);
-        price1500.setOnClickListener(v -> selectedPrice = 1500);
+        price500.setOnClickListener(v -> {
+            selectedPrice = 500;
+            price500.setBackground(getDrawable(R.drawable.selected_button));
+            price1000.setBackground(getDrawable(R.drawable.common_button));
+            price1500.setBackground(getDrawable(R.drawable.common_button));
+        });
+        price1000.setOnClickListener(v -> {
+            selectedPrice = 1000;
+            price500.setBackground(getDrawable(R.drawable.common_button));
+            price1000.setBackground(getDrawable(R.drawable.selected_button));
+            price1500.setBackground(getDrawable(R.drawable.common_button));
+        });
+        price1500.setOnClickListener(v -> {
+            selectedPrice = 1500;
+            price500.setBackground(getDrawable(R.drawable.common_button));
+            price1000.setBackground(getDrawable(R.drawable.common_button));
+            price1500.setBackground(getDrawable(R.drawable.selected_button));
+        });
 
         // 등록 버튼 클릭 이벤트
         submitButton.setOnClickListener(v -> {
@@ -79,9 +95,27 @@ public class PriceSelection extends AppCompatActivity {
 
             // 서버로 데이터 전송
             sendDataToServer(itemName, selectedPrice, specialNote, userId);
-            Toast.makeText(this, itemName+selectedPrice+selectedPrice+userId, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, itemName+selectedPrice+selectedPrice+userId, Toast.LENGTH_SHORT).show();        });
+
+            //네비
+            BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+            bottomNavigationView.setSelectedItemId(R.id.nav_home);
+            bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_chat) {
+                startActivity(new Intent(PriceSelection.this, ChatListActivity.class));
+                return true;
+            } else if (itemId == R.id.nav_home) {
+                startActivity(new Intent(PriceSelection.this, MainActivity.class));
+                return true;
+            } else if (itemId == R.id.nav_mypage) {
+                startActivity(new Intent(PriceSelection.this, MyPageActivity.class));
+                return true;
+            } else {
+                return false;
+            }
         });
-    }
+    };
 
     private void sendDataToServer(String itemName, int price, String specialNote, Long userId) {
         // LentItemDto 객체 생성
@@ -114,7 +148,6 @@ public class PriceSelection extends AppCompatActivity {
                     Toast.makeText(PriceSelection.this, "서버 오류 발생: " + response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onFailure(Call<LentItemDto> call, Throwable t) {
                 Toast.makeText(PriceSelection.this, "네트워크 오류 발생: " + t.getMessage(), Toast.LENGTH_SHORT).show();

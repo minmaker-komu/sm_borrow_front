@@ -59,10 +59,11 @@ public class MyInfoActivity extends AppCompatActivity {
 
         //네비
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setSelectedItemId(R.id.nav_mypage);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_chat) {
-                startActivity(new Intent(MyInfoActivity.this, ChatActivity.class));
+                startActivity(new Intent(MyInfoActivity.this, ChatListActivity.class));
                 return true;
             } else if (itemId == R.id.nav_home) {
                 startActivity(new Intent(MyInfoActivity.this, MainActivity.class));

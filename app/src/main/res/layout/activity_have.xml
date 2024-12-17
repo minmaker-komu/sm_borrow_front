@@ -91,9 +91,6 @@
                 android:layout_margin="8dp"
                 style="@style/CommonButton" />
         </LinearLayout>
-
-        <!-- 하단 네비게이션 -->
-
     </LinearLayout>
 
     <FrameLayout
