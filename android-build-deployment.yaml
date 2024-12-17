@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: android-build-deployment
+  labels:
+    app: android-build
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: android-build
+  template:
+    metadata:
+      labels:
+        app: android-build
+    spec:
+      containers:
+        - name: android-build
+          image: mangnyeong/android-build:latest # Docker Hub에 업로드한 이미지
+          volumeMounts:
+            - mountPath: /app
+              name: apk-output
+      volumes:
+        - name: apk-output
+          hostPath:
+            path: /path/on/host/output # APK를 저장할 호스트 경로

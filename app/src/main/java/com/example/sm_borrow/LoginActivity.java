@@ -54,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 // 서버로 로그인 요청
                 sendLoginDataToServer(email, password);
+
             }
         });
     }
