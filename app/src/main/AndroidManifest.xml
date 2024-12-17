@@ -13,12 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sm_borrow"
         tools:targetApi="31">
+
+
         <activity
             android:name=".BorrowItemActivity"
             android:exported="false" />
         <activity
             android:name=".ChatActivity"
-            android:exported="false" />
+            android:exported="false"/>
         <activity
             android:name=".ChatListActivity"
             android:exported="false" />
@@ -37,18 +39,17 @@
         <activity
             android:name=".ItemActivity"
             android:exported="false" />
+        <activity android:name=".MainActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".MyInfoActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".MyPageActivity"
+            android:exported="false"/>
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"/>
-        <activity
-            android:name=".MyInfoActivity"
-            android:exported="true"/>
-        <activity
-            android:name=".MyPageActivity"
-            android:exported="true"/>
         <activity
             android:name=".NeedActivity"
             android:exported="false" />
@@ -75,7 +76,6 @@
         <activity
             android:name=".PriceSelection"
             android:exported="false" />
-
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

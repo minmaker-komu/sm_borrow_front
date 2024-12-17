@@ -2,6 +2,7 @@ package com.example.sm_borrow;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -9,8 +10,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -28,6 +27,9 @@ public class ChatActivity extends AppCompatActivity {
     private EditText editMessage;
     private Button buttonSend;
 
+    //인텐트
+    String itemName;
+    String itemImage;
     private final List<String> messages = new ArrayList<>();
 
     @Override
@@ -40,8 +42,16 @@ public class ChatActivity extends AppCompatActivity {
         buttonSend = findViewById(R.id.button_send);
         TextView chatTitle = findViewById(R.id.text_chat_title);
 
-        // 아이템 이름 설정
-        String itemName = getIntent().getStringExtra("ITEM_NAME");
+        //인텐트 받아오기
+        Intent intent = getIntent();
+
+        itemName = intent.getStringExtra("ITEM_NAME");
+        itemImage = intent.getStringExtra("ITEM_IMAGE_URL");
+
+        Log.d("ChatActivity", "Item Name: " + itemName);
+        Log.d("ChatActivity", "Item Image: " + itemImage);
+
+
         chatTitle.setText(itemName + " - 거래 중");
 
         // RecyclerView 설정

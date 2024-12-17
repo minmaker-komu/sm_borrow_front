@@ -2,6 +2,7 @@ package com.example.sm_borrow;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, ChatActivity.class);
+
             intent.putExtra("ITEM_NAME", item.getItemName());
             intent.putExtra("ITEM_IMAGE_URL", item.getImageUrl());
             context.startActivity(intent);

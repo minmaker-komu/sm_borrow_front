@@ -38,10 +38,11 @@ public class NeedResultActivity extends AppCompatActivity {
 
         //네비
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setSelectedItemId(R.id.nav_home);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_chat) {
-                startActivity(new Intent(NeedResultActivity.this, ChatActivity.class));
+                startActivity(new Intent(NeedResultActivity.this, ChatListActivity.class));
                 return true;
             } else if (itemId == R.id.nav_home) {
                 startActivity(new Intent(NeedResultActivity.this, MainActivity.class));
